@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures.Console", "DataStructures.Console\DataStructures.Console.csproj", "{5E31A2EE-6B46-41C5-B342-417B6D940C48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures.Library", "DataStructures.Library\DataStructures.Library.csproj", "{CF4A7960-F244-4813-AAA9-0B7365B4732E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{5E31A2EE-6B46-41C5-B342-417B6D940C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E31A2EE-6B46-41C5-B342-417B6D940C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E31A2EE-6B46-41C5-B342-417B6D940C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4A7960-F244-4813-AAA9-0B7365B4732E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4A7960-F244-4813-AAA9-0B7365B4732E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4A7960-F244-4813-AAA9-0B7365B4732E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4A7960-F244-4813-AAA9-0B7365B4732E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
