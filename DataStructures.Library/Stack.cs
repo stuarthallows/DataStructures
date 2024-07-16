@@ -1,23 +1,25 @@
 ﻿namespace DataStructures.Library;
 
+/// <summary>
+/// Last in, first out (LIFO) collection.
+/// </summary>
 public class Stack<T>
 {
-    readonly Deque<T> store = new Deque<T>();
+    private readonly Deque<T> _store = new();
 
     public void Push(T item)
     {
-        store.EnqueueHead(item);
+        _store.EnqueueHead(item);
     }
 
     public T Pop()
     {
-        return store.DequeueHead();
+        return _store.DequeueHead();
     }
 
     public T Peek()
     {
-        T value;
-        if (store.PeekHead(out value))
+        if (_store.PeekHead(out var value))
         {
             return value;
         }
@@ -25,11 +27,5 @@ public class Stack<T>
         throw new InvalidOperationException();
     }
 
-    public int Count
-    {
-        get
-        {
-            return store.Count;
-        }
-    }
+    public int Count => _store.Count;
 }

@@ -2,26 +2,28 @@
 
 namespace DataStructures.Library;
 
+/// <summary>
+/// Double-ended queue.
+/// </summary>
 public class Deque<T> : IEnumerable<T>
 {
-    readonly DoublyLinkedList<T> store = new DoublyLinkedList<T>();
+    private readonly DoublyLinkedList<T> _store = [];
 
     public void EnqueueHead(T value)
     {
-        store.AddHead(value);
+        _store.AddHead(value);
     }
 
     public void EnqueueTail(T value)
     {
-        store.AddTail(value);
+        _store.AddTail(value);
     }
 
     public T DequeueHead()
     {
-        T value;
-        if(store.GetHead(out value))
+        if(_store.GetHead(out var value))
         {
-            store.RemoveHead();
+            _store.RemoveHead();
             return value;
         }
 
@@ -30,10 +32,9 @@ public class Deque<T> : IEnumerable<T>
 
     public T DequeueTail()
     {
-        T value;
-        if(store.GetTail(out value))
+        if(_store.GetTail(out var value))
         {
-            store.RemoveTail();
+            _store.RemoveTail();
             return value;
         }
 
@@ -42,22 +43,19 @@ public class Deque<T> : IEnumerable<T>
 
     public bool PeekHead(out T value)
     {
-        return store.GetHead(out value);
+        return _store.GetHead(out value);
     }
 
     public bool PeekTail(out T value)
     {
-        return store.GetTail(out value);
+        return _store.GetTail(out value);
     }
 
-    public int Count
-    {
-        get { return store.Count; }
-    }
+    public int Count => _store.Count;
 
     public IEnumerator<T> GetEnumerator()
     {
-        return store.GetEnumerator();
+        return _store.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()

@@ -1,23 +1,25 @@
 ﻿namespace DataStructures.Library;
 
+/// <summary>
+/// First in, first out (FIFO) collection.
+/// </summary>
 public class Queue<T>
 {
-    readonly Deque<T> store = new Deque<T>();
+    private readonly Deque<T> _store = new();
 
     public void Enqueue(T value)
     {
-        store.EnqueueTail(value);
+        _store.EnqueueTail(value);
     }
 
     public T Dequeue()
     {
-        return store.DequeueHead();
+        return _store.DequeueHead();
     }
 
     public T Peek()
     {
-        T value;
-        if(store.PeekHead(out value))
+        if(_store.PeekHead(out var value))
         {
             return value;
         }
@@ -25,8 +27,5 @@ public class Queue<T>
         throw new InvalidOperationException();
     }
 
-    public int Count
-    {
-        get { return store.Count; }
-    }
+    public int Count => _store.Count;
 }
