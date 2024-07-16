@@ -14,7 +14,7 @@ public class SortedList<T> : IEnumerable<T> where T : IComparable<T>
             SortedListNode<TNode> prev = null,
             SortedListNode<TNode> next = null)
         {
-            this.data = value;
+            data = value;
             this.prev = prev;
             this.next = next;
         }
@@ -74,7 +74,7 @@ public class SortedList<T> : IEnumerable<T> where T : IComparable<T>
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 
