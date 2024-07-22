@@ -100,6 +100,16 @@ public class DoublyLinkedListTests
     }
     
     [Fact]
+    public void ContainsForEmptyListTest()
+    {
+        var values = Create(1, 0);
+
+        var item = values.Find(1);
+    
+        Assert.Null(item);
+    }
+    
+    [Fact]
     public void ReverseIteratorTest()
     {
         var values = Create(1, 10);

@@ -40,19 +40,19 @@ public class DoublyLinkedList<T> : ICollection<T>
     /// <summary>
     /// The first node in the list or null if empty
     /// </summary>
-    public DoublyLinkedListNode<T>? Head
+    private DoublyLinkedListNode<T>? Head
     {
         get;
-        private set;
+        set;
     }
 
     /// <summary>
     /// The last node in the list or null if empty
     /// </summary>
-    public DoublyLinkedListNode<T>? Tail
+    private DoublyLinkedListNode<T>? Tail
     {
         get;
-        private set;
+        set;
     }
 
     /// <summary>
@@ -70,30 +70,20 @@ public class DoublyLinkedList<T> : ICollection<T>
     /// <param name="node">The node to add to the start of the list</param>
     private void AddHead(DoublyLinkedListNode<T> node)
     {
-        // Save off the head node so we don't lose it
-        DoublyLinkedListNode<T> temp = Head;
-
-        // Point head to the new node
-        Head = node;
-
-        // Insert the rest of the list behind the head
-        Head.Next = temp;
-
         if (Count == 0)
         {
-            // if the list was empty then Head and Tail should
-            // both point to the new node.
-            Tail = Head;
+            Tail = node;
         }
         else
         {
+            Head.Previous = node;
+            
             // Before: Head -------> 5 <-> 7 -> null
             // After:  Head -> 3 <-> 5 <-> 7 -> null
-            
-            // temp.Previous was null, now Head
-            temp.Previous = Head;
+            node.Next = Head;
         }
 
+        Head = node;
         Count++;
     }
 
@@ -135,26 +125,28 @@ public class DoublyLinkedList<T> : ICollection<T>
     /// </summary>
     public void RemoveHead()
     {
-        if (Count != 0)
+        if (Count == 0)
         {
-            // Before: Head -> 3 <-> 5
-            // After:  Head -------> 5
+            return;
+        }
+        
+        // Before: Head -> 3 <-> 5
+        // After:  Head -------> 5
 
-            // Head -> 3 -> null
-            // Head ------> null
-            Head = Head.Next;
+        // Head -> 3 -> null
+        // Head ------> null
+        Head = Head.Next;
 
-            Count--;
+        Count--;
 
-            if (Count == 0)
-            {
-                Tail = null;
-            }
-            else
-            {
-                // 5.Previous was 3, now null
-                Head.Previous = null;
-            }
+        if (Count == 0)
+        {
+            Tail = null;
+        }
+        else
+        {
+            // 5.Previous was 3, now null
+            Head.Previous = null;
         }
     }
 
@@ -163,25 +155,27 @@ public class DoublyLinkedList<T> : ICollection<T>
     /// </summary>
     public void RemoveTail()
     {
-        if (Count != 0)
+        if (Count == 0)
         {
-            if (Count == 1)
-            {
-                Head = null;
-                Tail = null;
-            }
-            else
-            {
-                // Before: Head --> 3 --> 5 --> 7
-                //         Tail = 7
-                // After:  Head --> 3 --> 5 --> null
-                //         Tail = 5
-                // Null out 5's Next pointer
-                Tail.Previous.Next = null;
-                Tail = Tail.Previous;
-            }
+            return;
+        }
+        
+        // Before: Head --> 3 --> 5 --> 7
+        //         Tail = 7
+        // After:  Head --> 3 --> 5 --> null
+        //         Tail = 5
+        Tail = Tail.Previous;
 
-            Count--;
+        Count--;
+
+        if (Count == 0)
+        {
+            Head = null;
+        }
+        else
+        {
+            // 5.Next was 7, now null
+            Tail.Next = null;
         }
     }
 
@@ -203,21 +197,16 @@ public class DoublyLinkedList<T> : ICollection<T>
         AddHead(item);
     }
 
-    public DoublyLinkedListNode<T> Find(T item)
+    public DoublyLinkedListNode<T>? Find(T item)
     {
-        DoublyLinkedListNode<T> current = Head;
-        while (current != null)
+        for(var current = Head; current != null; current = current.Next)
         {
-            // Head -> 3 -> 5 -> 7
-            // Value: 5
-            if (current.Value.Equals(item))
+            if (current.Value?.Equals(item) ?? false)
             {
                 return current;
             }
-
-            current = current.Next;
         }
-
+        
         return null;
     }
 
@@ -260,7 +249,7 @@ public class DoublyLinkedList<T> : ICollection<T>
     /// <returns>True if the item was found and removed, false otherwise</returns>
     public bool Remove(T item)
     {
-        DoublyLinkedListNode<T> found = Find(item);
+        DoublyLinkedListNode<T>? found = Find(item);
         if (found == null)
         {
             return false;
@@ -308,11 +297,9 @@ public class DoublyLinkedList<T> : ICollection<T>
     /// <returns>A Head to Tail enumerator</returns>
     public IEnumerator<T> GetEnumerator()
     {
-        DoublyLinkedListNode<T> current = Head;
-        while (current != null)
+        for(var current = Head; current != null; current = current.Next)
         {
             yield return current.Value;
-            current = current.Next;
         }
     }
 
@@ -323,11 +310,9 @@ public class DoublyLinkedList<T> : ICollection<T>
 
     public IEnumerable<T> GetReverseEnumerator()
     {
-        DoublyLinkedListNode<T> current = Tail;
-        while(current != null)
+        for(var current = Tail; current != null; current = current.Previous)
         {
             yield return current.Value;
-            current = current.Previous;
         }
     }
 
@@ -349,7 +334,7 @@ public class DoublyLinkedList<T> : ICollection<T>
             return true;
         }
 
-        value = default(T);
+        value = default;
         return false;
     }
 
@@ -361,7 +346,7 @@ public class DoublyLinkedList<T> : ICollection<T>
             return true;
         }
 
-        value = default(T);
+        value = default;
         return false;
     }
 }
