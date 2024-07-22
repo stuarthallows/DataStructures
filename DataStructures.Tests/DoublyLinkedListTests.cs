@@ -5,24 +5,25 @@ namespace DataStructures.Tests;
 public class DoublyLinkedListTests
 {
     [Fact]
-    public void InitalizeEmptyTest()
+    public void InitializeEmptyTest()
     {
-        DoublyLinkedList<int> ints = new DoublyLinkedList<int>();
-        Assert.Empty(ints);
+        // ReSharper disable once CollectionNeverUpdated.Local
+        var values = new DoublyLinkedList<int>();
+        Assert.Empty(values);
     }
     
     [Fact]
     public void AddHeadTest()
     {
-        DoublyLinkedList<int> ints = new DoublyLinkedList<int>();
-        for (int i = 1; i <= 5; i++)
+        var values = new DoublyLinkedList<int>();
+        for (var i = 1; i <= 5; i++)
         {
-            ints.AddHead(i);
-            Assert.Equal(i, ints.Count);
+            values.AddHead(i);
+            Assert.Equal(i, values.Count);
         }
     
-        int expected = 5;
-        foreach (int x in ints)
+        var expected = 5;
+        foreach (var x in values)
         {
             Assert.Equal(expected--, x);
         }
@@ -31,15 +32,15 @@ public class DoublyLinkedListTests
     [Fact]
     public void AddTailTest()
     {
-        DoublyLinkedList<int> ints = new DoublyLinkedList<int>();
-        for (int i = 1; i <= 5; i++)
+        var values = new DoublyLinkedList<int>();
+        for (var i = 1; i <= 5; i++)
         {
-            ints.AddTail(i);
-            Assert.Equal(i, ints.Count);
+            values.AddTail(i);
+            Assert.Equal(i, values.Count);
         }
     
-        int expected = 1;
-        foreach (int x in ints)
+        var expected = 1;
+        foreach (var x in values)
         {
             Assert.Equal(expected++, x);
         }
@@ -48,62 +49,62 @@ public class DoublyLinkedListTests
     [Fact]
     public void RemoveTest()
     {
-        DoublyLinkedList<int> delete1to10 = Create(1, 10);
-        Assert.Equal(10, delete1to10.Count);
+        var delete1To10 = Create(1, 10);
+        Assert.Equal(10, delete1To10.Count);
     
-        for (int i = 1; i <= 10; i++)
+        for (var i = 1; i <= 10; i++)
         {
-            Assert.True(delete1to10.Remove(i));
-            Assert.False(delete1to10.Remove(i));
+            Assert.True(delete1To10.Remove(i));
+            Assert.False(delete1To10.Remove(i));
         }
     
-        Assert.Equal(0, delete1to10.Count);
+        Assert.Empty(delete1To10);
     
-        DoublyLinkedList<int> delete10to1 = Create(1, 10);
-        Assert.Equal(10, delete10to1.Count);
+        var delete10To1 = Create(1, 10);
+        Assert.Equal(10, delete10To1.Count);
     
-        for (int i = 10; i >= 1; i--)
+        for (var i = 10; i >= 1; i--)
         {
-            Assert.True(delete10to1.Remove(i));
-            Assert.False(delete10to1.Remove(i));
+            Assert.True(delete10To1.Remove(i));
+            Assert.False(delete10To1.Remove(i));
         }
     
-        Assert.Equal(0, delete10to1.Count);
+        Assert.Empty(delete10To1);
     }
     
     [Fact]
     public void RemoveMiddle()
     {
-        DoublyLinkedList<int> del = Create(1, 10);
-        del.Remove(5);
+        var values = Create(1, 10);
+        values.Remove(5);
     
-        Assert.Equal(9, del.Count);
-        Assert.Contains(4, del);
-        Assert.DoesNotContain(5, del);
-        Assert.Contains(6, del);
+        Assert.Equal(9, values.Count);
+        Assert.Contains(4, values);
+        Assert.DoesNotContain(5, values);
+        Assert.Contains(6, values);
     
-        AssertArraysSame(del.ToArray(), [1, 2, 3, 4, 6, 7, 8, 9, 10]);
+        AssertArraysSame(values.ToArray(), [1, 2, 3, 4, 6, 7, 8, 9, 10]);
     }
     
     [Fact]
     public void ContainsTest()
     {
-        DoublyLinkedList<int> ints = Create(1, 10);
-        for (int i = 1; i <= 10; i++)
+        var values = Create(1, 10);
+        for (var i = 1; i <= 10; i++)
         {
-            Assert.Contains(i, ints);
+            Assert.Contains(i, values);
         }
     
-        Assert.DoesNotContain(0, ints);
-        Assert.DoesNotContain(11, ints);
+        Assert.DoesNotContain(0, values);
+        Assert.DoesNotContain(11, values);
     }
     
     [Fact]
     public void ReverseIteratorTest()
     {
-        DoublyLinkedList<int> ints = Create(1, 10);
-        int expected = 10;
-        foreach(int actual in ints.GetReverseEnumerator())
+        var values = Create(1, 10);
+        var expected = 10;
+        foreach(var actual in values.GetReverseEnumerator())
         {
             Assert.Equal(expected--, actual);
         }
@@ -111,19 +112,19 @@ public class DoublyLinkedListTests
     
     private static DoublyLinkedList<int> Create(int start, int end)
     {
-        DoublyLinkedList<int> ints = new DoublyLinkedList<int>();
-        for (int i = start; i <= end; i++)
+        var values = new DoublyLinkedList<int>();
+        for (var i = start; i <= end; i++)
         {
-            ints.AddTail(i);
+            values.AddTail(i);
         }
     
-        return ints;
+        return values;
     }
     
-    private void AssertArraysSame(int[] actual, int[] expected)
+    private static void AssertArraysSame(int[] actual, int[] expected)
     {
         Assert.Equal(expected.Length, actual.Length);
-        for (int i = 0; i < expected.Length; i++)
+        for (var i = 0; i < expected.Length; i++)
         {
             Assert.Equal(expected[i], actual[i]);
         }

@@ -7,14 +7,13 @@ public class BinaryTreeTests
     [Fact]
     public void InsertTests()
     {
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(3);
         tree.Add(1);
         tree.Add(4);
         tree.Add(2);
 
-
-        int[] expected = new int[] { 3, 1, 2, 4 };
+        var expected = new[] { 3, 1, 2, 4 };
         AssertTreePreOrder(tree, expected);
     }
 
@@ -24,20 +23,20 @@ public class BinaryTreeTests
         //          3
         //      1      4
         //        2
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(3);
         tree.Add(1);
         tree.Add(4);
         tree.Add(2);
 
         tree.Remove(2);
-        AssertTreePreOrder(tree, new int[] { 3, 1, 4 });
+        AssertTreePreOrder(tree, [3, 1, 4]);
 
         tree.Remove(4);
-        AssertTreePreOrder(tree, new int[] { 3, 1 });
+        AssertTreePreOrder(tree, [3, 1]);
 
         tree.Remove(1);
-        AssertTreePreOrder(tree, new int[] { 3 });
+        AssertTreePreOrder(tree, [3]);
     }
 
     [Fact]
@@ -46,14 +45,14 @@ public class BinaryTreeTests
         //          3
         //      1      4
         //        2
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(3);
         tree.Add(1);
         tree.Add(4);
         tree.Add(2);
 
         tree.Remove(1);
-        AssertTreePreOrder(tree, new int[] { 3, 2, 4 });
+        AssertTreePreOrder(tree, [3, 2, 4]);
     }
 
     [Fact]
@@ -62,14 +61,14 @@ public class BinaryTreeTests
         //          3
         //      2      4
         //     1
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(3);
         tree.Add(2);
         tree.Add(4);
         tree.Add(1);
 
         tree.Remove(2);
-        AssertTreePreOrder(tree, new int[] { 3, 1, 4 });
+        AssertTreePreOrder(tree, [3, 1, 4]);
     }
 
     [Fact]
@@ -80,7 +79,7 @@ public class BinaryTreeTests
         //     4  9
         //    3  7
         //        8
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(10);
         tree.Add(5);
         tree.Add(4);
@@ -96,7 +95,7 @@ public class BinaryTreeTests
         //    3  8
         //        
         tree.Remove(5);
-        AssertTreePreOrder(tree, new int[] { 10, 7, 4, 3, 9, 8, 11 });
+        AssertTreePreOrder(tree, [10, 7, 4, 3, 9, 8, 11]);
     }
 
     [Fact]
@@ -108,7 +107,7 @@ public class BinaryTreeTests
         //           12
         //             13
         //               14
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(10);
         tree.Add(5);
         tree.Add(4);
@@ -127,7 +126,7 @@ public class BinaryTreeTests
         //             14
         //               
         tree.Remove(10);
-        AssertTreePreOrder(tree, new int[] { 12, 5, 4, 6, 20, 15, 13, 14 });
+        AssertTreePreOrder(tree, [12, 5, 4, 6, 20, 15, 13, 14]);
 
 
         //          13
@@ -136,7 +135,7 @@ public class BinaryTreeTests
         //           14
         //               
         tree.Remove(12);
-        AssertTreePreOrder(tree, new int[] { 13, 5, 4, 6, 20, 15, 14 });
+        AssertTreePreOrder(tree, [13, 5, 4, 6, 20, 15, 14]);
     }
 
     [Fact]
@@ -145,13 +144,13 @@ public class BinaryTreeTests
         //          3
         //      2
         //     1
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(3);
         tree.Add(2);
         tree.Add(1);
 
         tree.Remove(3);
-        AssertTreePreOrder(tree, new int[] { 2, 1});
+        AssertTreePreOrder(tree, [2, 1]);
     }
 
     [Fact]
@@ -160,23 +159,23 @@ public class BinaryTreeTests
         //          3
         //            4
         //              5
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(3);
         tree.Add(4);
         tree.Add(5);
 
         tree.Remove(3);
-        AssertTreePreOrder(tree, new int[] { 4, 5 });
+        AssertTreePreOrder(tree, [4, 5]);
     }
 
     [Fact]
     public void Remove_Root_Only()
     {
-        BinaryTree<int> tree = new BinaryTree<int>();
+        var tree = new BinaryTree<int>();
         tree.Add(3);
 
         tree.Remove(3);
-        AssertTreePreOrder(tree, new int[] { });
+        AssertTreePreOrder(tree, []);
     }
 
     [Fact]
@@ -188,7 +187,7 @@ public class BinaryTreeTests
         //           12
         //             13
         //               14
-        BinaryTree<int> expected = new BinaryTree<int>();
+        var expected = new BinaryTree<int>();
         expected.Add(10);
         expected.Add(5);
         expected.Add(4);
@@ -200,7 +199,7 @@ public class BinaryTreeTests
         expected.Add(13);
         expected.Add(14);
 
-        BinaryTree<int> actual = new BinaryTree<int>();
+        var actual = new BinaryTree<int>();
         expected.PreOrderTraversal((value) => actual.Add(value));
 
         AssertTreesSame(actual, expected);
@@ -208,7 +207,7 @@ public class BinaryTreeTests
 
     private int[] TreeToPreorderArray(BinaryTree<int> tree)
     {
-        DoublyLinkedList<int> actualList = new DoublyLinkedList<int>();
+        var actualList = new DoublyLinkedList<int>();
         tree.PreOrderTraversal((value) => actualList.AddTail(value));
         return actualList.ToArray();
     }
@@ -221,7 +220,7 @@ public class BinaryTreeTests
     private void AssertArraysSame(int[] actual, int[] expected)
     {
         Assert.Equal(expected.Length, actual.Length);
-        for (int i = 0; i < expected.Length; i++)
+        for (var i = 0; i < expected.Length; i++)
         {
             Assert.Equal(expected[i], actual[i]);
         }
@@ -231,7 +230,7 @@ public class BinaryTreeTests
     {
         Assert.Equal(expected.Length, tree.Count);
 
-        int[] actual = TreeToPreorderArray(tree);
+        var actual = TreeToPreorderArray(tree);
 
         AssertArraysSame(actual, expected);
     }

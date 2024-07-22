@@ -7,14 +7,14 @@ public class QueueTests
     {
         var queue = new Library.Queue<int>();
     
-        for(int i = 0; i < 10; i++)
+        for(var i = 0; i < 10; i++)
         {
             queue.Enqueue(i);
         }
     
         Assert.Equal(10, queue.Count);
     
-        for(int expected = 0; expected < 10; expected++)
+        for(var expected = 0; expected < 10; expected++)
         {
             Assert.Equal(expected, queue.Peek());
             Assert.Equal(expected, queue.Dequeue());

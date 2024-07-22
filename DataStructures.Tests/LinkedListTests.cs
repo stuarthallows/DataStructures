@@ -3,24 +3,25 @@ namespace DataStructures.Tests;
 public class LinkedListTests
 {
     [Fact]
-    public void InitalizeEmptyTest()
+    public void InitializeEmptyTest()
     {
-        var ints = new Library.LinkedList<int>();
-        Assert.Equal(0, ints.Count);
+        // ReSharper disable once CollectionNeverUpdated.Local
+        var values = new Library.LinkedList<int>();
+        Assert.Empty(values);
     }
     
     [Fact]
     public void AddHeadTest()
     {
-        var ints = new Library.LinkedList<int>();
-        for (int i = 1; i <= 5; i++)
+        var values = new Library.LinkedList<int>();
+        for (var i = 1; i <= 5; i++)
         {
-            ints.AddHead(i);
-            Assert.Equal(i, ints.Count);
+            values.AddHead(i);
+            Assert.Equal(i, values.Count);
         }
     
-        int expected = 5;
-        foreach (int x in ints)
+        var expected = 5;
+        foreach (var x in values)
         {
             Assert.Equal(expected--, x);
         }
@@ -29,15 +30,15 @@ public class LinkedListTests
     [Fact]
     public void AddTailTest()
     {
-        var ints = new Library.LinkedList<int>();
-        for (int i = 1; i <= 5; i++)
+        var values = new Library.LinkedList<int>();
+        for (var i = 1; i <= 5; i++)
         {
-            ints.AddTail(i);
-            Assert.Equal(i, ints.Count);
+            values.AddTail(i);
+            Assert.Equal(i, values.Count);
         }
     
-        int expected = 1;
-        foreach (int x in ints)
+        var expected = 1;
+        foreach (var x in values)
         {
             Assert.Equal(expected++, x);
         }
@@ -46,50 +47,50 @@ public class LinkedListTests
     [Fact]
     public void RemoveTest()
     {
-        var delete1to10 = create(1, 10);
-        Assert.Equal(10, delete1to10.Count);
+        var delete1To10 = Create(1, 10);
+        Assert.Equal(10, delete1To10.Count);
     
-        for (int i = 1; i <= 10; i++)
+        for (var i = 1; i <= 10; i++)
         {
-            Assert.True(delete1to10.Remove(i));
-            Assert.False(delete1to10.Remove(i));
+            Assert.True(delete1To10.Remove(i));
+            Assert.False(delete1To10.Remove(i));
         }
     
-        Assert.Equal(0, delete1to10.Count);
+        Assert.Empty(delete1To10);
     
-        var delete10to1 = create(1, 10);
-        Assert.Equal(10, delete10to1.Count);
+        var delete10To1 = Create(1, 10);
+        Assert.Equal(10, delete10To1.Count);
     
-        for (int i = 10; i >= 1; i--)
+        for (var i = 10; i >= 1; i--)
         {
-            Assert.True(delete10to1.Remove(i));
-            Assert.False(delete10to1.Remove(i));
+            Assert.True(delete10To1.Remove(i));
+            Assert.False(delete10To1.Remove(i));
         }
     
-        Assert.Equal(0, delete10to1.Count);
+        Assert.Empty(delete10To1);
     }
     
     [Fact]
     public void ContainsTest()
     {
-        var ints = create(1, 10);
-        for (int i = 1; i <= 10; i++)
+        var values = Create(1, 10);
+        for (var i = 1; i <= 10; i++)
         {
-            Assert.True(ints.Contains(i));
+            Assert.Contains(i, values);
         }
     
-        Assert.False(ints.Contains(0));
-        Assert.False(ints.Contains(11));
+        Assert.DoesNotContain(0, values);
+        Assert.DoesNotContain(11, values);
     }
     
-    private Library.LinkedList<int> create(int start, int end)
+    private static Library.LinkedList<int> Create(int start, int end)
     {
-        var ints = new Library.LinkedList<int>();
-        for (int i = start; i <= end; i++)
+        var values = new Library.LinkedList<int>();
+        for (var i = start; i <= end; i++)
         {
-            ints.AddTail(i);
+            values.AddTail(i);
         }
     
-        return ints;
+        return values;
     }
 }

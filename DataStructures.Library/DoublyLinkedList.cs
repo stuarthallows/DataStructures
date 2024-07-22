@@ -11,7 +11,6 @@ public class DoublyLinkedListNode<T>
     /// <summary>
     /// Constructs a new node with the specified value.
     /// </summary>
-    /// <param name="value"></param>
     public DoublyLinkedListNode(T value)
     {
         Value = value;
@@ -25,12 +24,12 @@ public class DoublyLinkedListNode<T>
     /// <summary>
     /// The next node in the linked list (null if last node)
     /// </summary>
-    public DoublyLinkedListNode<T> Next { get; set; }
+    public DoublyLinkedListNode<T>? Next { get; set; }
 
     /// <summary>
     /// The previous node in the linked list (null if first node)
     /// </summary>
-    public DoublyLinkedListNode<T> Previous { get; set; }
+    public DoublyLinkedListNode<T>? Previous { get; set; }
 }
 
 /// <summary>

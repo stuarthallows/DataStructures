@@ -25,7 +25,7 @@ public class LinkedListNode<T>
     /// <summary>
     /// The next node in the linked list (null if last node)
     /// </summary>
-    public LinkedListNode<T> Next { get; set; }
+    public LinkedListNode<T>? Next { get; set; }
 }
 
 /// <summary>
@@ -33,37 +33,17 @@ public class LinkedListNode<T>
 /// Add, Remove, Find and Enumerate
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class LinkedList<T> : 
-    ICollection<T>
+public class LinkedList<T> : ICollection<T>
 {
-
-    public T Head
-    {
-        get { return head.Value; }
-    }
-
-    public T Tail
-    {
-        get { return tail.Value; }
-    }
-
     /// <summary>
     /// The first node in the list or null if empty
     /// </summary>
-    private LinkedListNode<T> head
-    {
-        get;
-        set;
-    }
+    private LinkedListNode<T>? _head;
 
     /// <summary>
     /// The last node in the list or null if empty
     /// </summary>
-    private LinkedListNode<T> tail
-    {
-        get;
-        set;
-    }
+    private LinkedListNode<T>? _tail;
 
     #region Add
     /// <summary>
@@ -82,13 +62,13 @@ public class LinkedList<T> :
     public void AddHead(LinkedListNode<T> node)
     {
         // Save off the head node so we don't lose it
-        LinkedListNode<T> temp = head;
+        LinkedListNode<T> temp = _head;
 
         // Point head to the new node
-        head = node;
+        _head = node;
 
         // Insert the rest of the list behind the head
-        head.Next = temp;
+        _head.Next = temp;
 
         Count++;
 
@@ -96,7 +76,7 @@ public class LinkedList<T> :
         {
             // if the list was empty then Head and Tail should
             // both point to the new node.
-            tail = head;
+            _tail = _head;
         }
     }
 
@@ -112,19 +92,19 @@ public class LinkedList<T> :
     /// <summary>
     /// Add the node to the end of the list
     /// </summary>
-    /// <param name="value">The node to add</param>
+    /// <param name="node">The node to add</param>
     public void AddTail(LinkedListNode<T> node)
     {
         if (Count == 0)
         {
-            head = node;
+            _head = node;
         }
         else
         {
-            tail.Next = node;
+            _tail.Next = node;
         }
 
-        tail = node;
+        _tail = node;
 
         Count++;
     }
@@ -143,12 +123,12 @@ public class LinkedList<T> :
 
             // Head -> 3 -> null
             // Head ------> null
-            head = head.Next;
+            _head = _head.Next;
             Count--;
 
             if (Count == 0)
             {
-                tail = null;
+                _tail = null;
             }
         }
     }
@@ -162,8 +142,8 @@ public class LinkedList<T> :
         {
             if (Count == 1)
             {
-                head = null;
-                tail = null;
+                _head = null;
+                _tail = null;
             }
             else
             {
@@ -171,14 +151,14 @@ public class LinkedList<T> :
                 //         Tail = 7
                 // After:  Head --> 3 --> 5 --> null
                 //         Tail = 5
-                LinkedListNode<T> current = head;
-                while (current.Next != tail)
+                LinkedListNode<T>? current = _head;
+                while (current?.Next != _tail)
                 {
-                    current = current.Next;
+                    current = current?.Next;
                 }
 
                 current.Next = null;
-                tail = current;
+                _tail = current;
             }
 
             Count--;
@@ -214,7 +194,7 @@ public class LinkedList<T> :
     /// <returns>True if the item is found, false otherwise.</returns>
     public bool Contains(T item)
     {
-        LinkedListNode<T> current = head;
+        LinkedListNode<T>? current = _head;
         while (current != null)
         {
             if (current.Value.Equals(item))
@@ -235,7 +215,7 @@ public class LinkedList<T> :
     /// <param name="arrayIndex">The index in the array to start copying at</param>
     public void CopyTo(T[] array, int arrayIndex)
     {
-        LinkedListNode<T> current = head;
+        LinkedListNode<T>? current = _head;
         while (current != null)
         {
             array[arrayIndex++] = current.Value;
@@ -246,24 +226,17 @@ public class LinkedList<T> :
     /// <summary>
     /// True if the collection is readonly, false otherwise.
     /// </summary>
-    public bool IsReadOnly
-    {
-        get
-        {
-            return false;
-        }
-    }
+    public bool IsReadOnly => false;
 
     /// <summary>
-    /// Removes the first occurance of the item from the list (searching
-    /// from Head to Tail).
+    /// Removes the first occurence of the item from the list (searching from Head to Tail).
     /// </summary>
     /// <param name="item">The item to remove</param>
     /// <returns>True if the item was found and removed, false otherwise</returns>
     public bool Remove(T item)
     {
         LinkedListNode<T> previous = null;
-        LinkedListNode<T> current = head;
+        LinkedListNode<T> current = _head;
 
         // 1: Empty list - do nothing
         // 2: Single node: (previous is null)
@@ -287,7 +260,7 @@ public class LinkedList<T> :
                     // it was the end - so update Tail
                     if (current.Next == null)
                     {
-                        tail = previous;
+                        _tail = previous;
                     }
 
                     Count--;
@@ -314,7 +287,7 @@ public class LinkedList<T> :
     /// <returns>A Head to Tail enumerator</returns>
     public IEnumerator<T> GetEnumerator()
     {
-        LinkedListNode<T> current = head;
+        LinkedListNode<T>? current = _head;
         while (current != null)
         {
             yield return current.Value;
@@ -336,10 +309,9 @@ public class LinkedList<T> :
     /// </summary>
     public void Clear()
     {
-        head = null;
-        tail = null;
+        _head = null;
+        _tail = null;
         Count = 0;
     }
-
     #endregion
 }

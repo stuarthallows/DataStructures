@@ -3,7 +3,6 @@
 /// <summary>
 /// A binary tree node class - encapsulates the value and left/right pointers.
 /// </summary>
-/// <typeparam name="TNode"></typeparam>
 internal class BinaryTreeNode<TNode> : IComparable<TNode>
     where TNode : IComparable<TNode>
 {
